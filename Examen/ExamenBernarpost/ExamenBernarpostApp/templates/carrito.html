@@ -1,0 +1,96 @@
+{% extends "./principal.html" %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <nav class="navbar navbar-expand-lg bg" style= "background-color: #3B5998; ">
+            <div class="container-fluid">
+              <a class="navbar-brand" style="color: white;" href="#">BernarPost</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'novedades' %}" style="color: white;">Novedades</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'panoramas' %}" style="color: white;">Panoramas</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'carrito' %}" style="color: white;">Carrito</a>
+                  </li>
+            
+                </ul>
+                </form>
+              </div>
+            </div>
+          </nav>
+        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+            <h2>            <br>  </h2>
+            <h3>Nuestros planes:</h3>
+            <div class="card">
+                <div class="card-body">
+                    <form action="/registrarPlan/" method="post"> {% csrf_token %}
+                        <div class="form-group">
+                            <input type="text" id="txtCodigo" name="txtCodigo" class="form-control" placeholder="Codigo" minlength="1" maxlength="6" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="txtEmail" name="txtEmail" class="form-control" placeholder="Email" maxlength="50" required>
+                        </div>
+                       
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+            <h2>  <br></h2>
+            <h3>Tu Plan</h3>
+            <div class="table-responsive py-2">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Codigo</th>
+                            <th>Email</th>
+    
+                            <th colspan="1">Eliminar Plan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for p in planes %}
+                        <tr>
+                            <td>{{ p.codigo }}</td>
+                            <td>{{ p.email }}</td>
+                            <td><a href="{% url 'eliminacionPlan' p.codigo %}" class="btn btn-danger">Eliminar</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+    </div>
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="jumbotron">
+            <h1><br></h1>
+            <h1 class="display-4">Carrito BernarPost</h1>
+            <h4>Codigo:1 Plan Basico(Incluye 1 mes de publicidad) $15.990</h4><br>
+            <h4>Codigo:2 Plan Premium(Incluye 1 año de publicidad + Soporte) $79.990</h4>
+            <hr class="my-4">
+            <p>BernarPost © 2024 </p>
+            <a class="btn btn-primary btn-lg" href="{% url 'novedades' %}" role="button">Ir a BernarPost</a>
+          </div>
+    </div>
+ 
+    
+</div>
+<footer class=" py-3 mt-4" style="background-color: #3b5998;">
+    <div class="container text-center">
+        <h5 style="color: white;">BernarPost©</h5>
+    </div>
+</footer>
+{% endblock %}
